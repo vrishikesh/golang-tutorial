@@ -1,1 +1,1 @@
-# golang-tutorial
+# Go (Golang) Tutorial
