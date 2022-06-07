@@ -26,7 +26,7 @@ type MailingListServiceClient interface {
 	GetEmail(ctx context.Context, in *GetEmailRequest, opts ...grpc.CallOption) (*EmailResponse, error)
 	UpdateEmail(ctx context.Context, in *UpdateEmailRequest, opts ...grpc.CallOption) (*EmailResponse, error)
 	DeleteEmail(ctx context.Context, in *DeleteEmailRequest, opts ...grpc.CallOption) (*EmailResponse, error)
-	GetEmailBatch(ctx context.Context, in *GetEmailBatchRequest, opts ...grpc.CallOption) (*GetEmailBatchRequest, error)
+	GetEmailBatch(ctx context.Context, in *GetEmailBatchRequest, opts ...grpc.CallOption) (*GetEmailBatchResponse, error)
 }
 
 type mailingListServiceClient struct {
@@ -73,8 +73,8 @@ func (c *mailingListServiceClient) DeleteEmail(ctx context.Context, in *DeleteEm
 	return out, nil
 }
 
-func (c *mailingListServiceClient) GetEmailBatch(ctx context.Context, in *GetEmailBatchRequest, opts ...grpc.CallOption) (*GetEmailBatchRequest, error) {
-	out := new(GetEmailBatchRequest)
+func (c *mailingListServiceClient) GetEmailBatch(ctx context.Context, in *GetEmailBatchRequest, opts ...grpc.CallOption) (*GetEmailBatchResponse, error) {
+	out := new(GetEmailBatchResponse)
 	err := c.cc.Invoke(ctx, "/proto.MailingListService/GetEmailBatch", in, out, opts...)
 	if err != nil {
 		return nil, err
@@ -90,7 +90,7 @@ type MailingListServiceServer interface {
 	GetEmail(context.Context, *GetEmailRequest) (*EmailResponse, error)
 	UpdateEmail(context.Context, *UpdateEmailRequest) (*EmailResponse, error)
 	DeleteEmail(context.Context, *DeleteEmailRequest) (*EmailResponse, error)
-	GetEmailBatch(context.Context, *GetEmailBatchRequest) (*GetEmailBatchRequest, error)
+	GetEmailBatch(context.Context, *GetEmailBatchRequest) (*GetEmailBatchResponse, error)
 	mustEmbedUnimplementedMailingListServiceServer()
 }
 
@@ -110,7 +110,7 @@ func (UnimplementedMailingListServiceServer) UpdateEmail(context.Context, *Updat
 func (UnimplementedMailingListServiceServer) DeleteEmail(context.Context, *DeleteEmailRequest) (*EmailResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteEmail not implemented")
 }
-func (UnimplementedMailingListServiceServer) GetEmailBatch(context.Context, *GetEmailBatchRequest) (*GetEmailBatchRequest, error) {
+func (UnimplementedMailingListServiceServer) GetEmailBatch(context.Context, *GetEmailBatchRequest) (*GetEmailBatchResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmailBatch not implemented")
 }
 func (UnimplementedMailingListServiceServer) mustEmbedUnimplementedMailingListServiceServer() {}
